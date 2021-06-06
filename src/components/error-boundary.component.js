@@ -21,3 +21,21 @@ class ErrorBoundary extends Component {
 }
 
 export default ErrorBoundary;
+// import React, { useState } from 'react';
+
+// const ErrorBoundary =({children}) => {
+//   const [hasError, setHasError] = useState(false);
+
+//   componentDidCatch(error, info) { // was no hook to grab a catch (error)
+//     setHasError( true );
+//   }
+
+//   render() {
+//     if (hasError) {
+//       return <h1>Oooops. That is not good</h1>;
+//     }
+//     return children;
+//   }
+// }
+
+// export default ErrorBoundary;
