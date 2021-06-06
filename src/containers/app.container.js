@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import CardList from '../components/card-list.component';
 import SearchBox from '../components/search-box.component';
 import Scroll from '../components/scroll.component';
 import ErrorBoundary from '../components/error-boundary.component';
 import './app.container.css';
 
-const App = () => {
+import { setSearchField } from '../actions';
+const mapStateToProps = (state) => {
+  return {
+    searchField: state.searchField,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+  };
+};
+
+const App = (props) => {
   const [robots, setRobots] = useState([]);
-  const [searchField, setSearchField] = useState('');
+  // const [searchField, setSearchField] = useState('');
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -17,10 +30,11 @@ const App = () => {
     console.log(count);
   }, [count]); // only run if count changes
 
-  const onSearchChange = (event) => {
-    setSearchField(event.target.value);
-  };
+  // const onSearchChange = (event) => {
+  //   setSearchField(event.target.value);
+  // };
 
+  const { searchField, onSearchChange } = props;
   const filteredRobots = robots.filter((robot) => {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
   });
@@ -40,4 +54,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
